@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Webhook Test') {
             steps {
                 echo 'Webhook triggered successfully from GitHub!'
@@ -15,9 +14,15 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                bat 'pip install -r requirements.txt'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t user-management-app .'
+                bat 'docker build -t user-management-app .'
             }
         }
     }
